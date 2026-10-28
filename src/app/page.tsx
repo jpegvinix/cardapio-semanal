@@ -9,7 +9,6 @@ import {
   UtensilsCrossed,
   Sparkles,
   Calendar,
-  Clock,
   RefreshCw,
 } from 'lucide-react';
 
@@ -100,14 +99,9 @@ export default function PublicMenuPage() {
             </div>
             <div className="h-4 w-px bg-slate-200 hidden xs:block" />
             <div>
-              <div className="flex items-center space-x-2">
-                <h1 className="text-base sm:text-lg font-bold tracking-tight text-[#1A1F2B] leading-tight">
-                  Cardápio da Cozinha
-                </h1>
-                <span className="hidden sm:inline-block text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-[#EAF3FD] text-[#1E7BE8] border border-[#BFDBFE]">
-                  #forçaazul
-                </span>
-              </div>
+              <h1 className="text-base sm:text-lg font-bold tracking-tight text-[#1A1F2B] leading-tight">
+                Cardápio da Cozinha
+              </h1>
               <p className="text-xs text-[#64748B] font-medium">Alimentação do time Banlek</p>
             </div>
           </div>
@@ -316,19 +310,6 @@ export default function PublicMenuPage() {
           })}
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="mt-12 border-t border-[#E3E8EF] py-6 text-center text-xs text-[#64748B]">
-        <p className="flex flex-wrap items-center justify-center gap-2">
-          <span>Feito com carinho pela equipe da cozinha Banlek</span>
-          <span>•</span>
-          <span className="font-semibold text-[#1E7BE8]">#forçaazul</span>
-          <span>•</span>
-          <span className="flex items-center">
-            <Clock className="w-3.5 h-3.5 mr-1 text-[#64748B]" /> Atualizado em tempo real
-          </span>
-        </p>
-      </footer>
     </div>
   );
 }

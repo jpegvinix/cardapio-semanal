@@ -270,10 +270,6 @@ export default function EditMenuPage() {
         {/* Form Days */}
         {menu && (
           <div className="space-y-6">
-            <div className="bg-[#EAF3FD] border border-[#BFDBFE] rounded-xl px-4 py-3 text-xs text-[#0F2742] flex items-center justify-between">
-              <span>💡 <strong>Dica da cozinha:</strong> Preencha apenas os pratos que serão servidos. Campos deixados vazios (como sobremesa) não serão exibidos na visualização pública.</span>
-            </div>
-
             {daysInfo.map((day) => {
               const currentMeal = menu.days[day.key];
               return (

@@ -28,3 +28,4 @@ export function BanlekLogo({ className = 'h-6 w-auto text-[#1E7BE8]', width, hei
     </svg>
   );
 }
+
