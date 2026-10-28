@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { WeekMenu, DayInfo, DayKey, DayMeal, CATEGORY_LABELS } from '@/lib/types';
+import { BanlekLogo } from '@/components/BanlekLogo';
 import {
   Save,
   Check,
@@ -11,8 +12,6 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
-  ChefHat,
-  Sparkles,
   ArrowRight,
   RefreshCw,
 } from 'lucide-react';
@@ -147,18 +146,18 @@ export default function EditMenuPage() {
 
   if (authError) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl p-8 max-w-md w-full border border-red-200 text-center shadow-lg">
+      <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center p-4">
+        <div className="bg-white rounded-3xl p-8 max-w-md w-full border border-red-200 text-center shadow-card">
           <div className="w-14 h-14 mx-auto rounded-2xl bg-red-50 flex items-center justify-center text-red-600 mb-4">
             <AlertCircle className="w-7 h-7" />
           </div>
-          <h2 className="text-xl font-bold text-stone-900 mb-2">Link de edição inválido</h2>
-          <p className="text-sm text-stone-600 mb-6 leading-relaxed">
-            O link de edição acessado não confere com a chave de segurança configurada. Verifique com a coordenação ou responsável técnico.
+          <h2 className="text-xl font-bold text-[#1A1F2B] mb-2">Link de edição inválido</h2>
+          <p className="text-sm text-[#475366] mb-6 leading-relaxed">
+            O link de edição acessado não confere com a chave de segurança configurada. Verifique com a coordenação técnica.
           </p>
           <a
             href="/"
-            className="inline-flex items-center text-sm font-semibold text-amber-700 hover:text-amber-800"
+            className="inline-flex items-center text-sm font-semibold text-[#1E7BE8] hover:text-[#1A6CD0]"
           >
             Ir para o cardápio público <ArrowRight className="w-4 h-4 ml-1.5" />
           </a>
@@ -170,42 +169,43 @@ export default function EditMenuPage() {
   const daysInfo = data?.weekInfo.days || [];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf8f5] pb-24">
+    <div className="min-h-screen flex flex-col bg-[#F5F7FA] pb-24">
       {/* Top Header */}
-      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-xs">
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#E3E8EF] shadow-xs">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center shadow-xs">
-              <ChefHat className="w-6 h-6" />
+            <div className="flex items-center">
+              <BanlekLogo className="h-6 w-auto text-[#1E7BE8]" />
             </div>
+            <div className="h-4 w-px bg-slate-200 hidden xs:block" />
             <div>
               <div className="flex items-center space-x-2">
-                <h1 className="text-base sm:text-lg font-bold text-stone-900 leading-tight">
+                <h1 className="text-base sm:text-lg font-bold text-[#1A1F2B] leading-tight">
                   Painel da Cozinha
                 </h1>
-                <span className="bg-amber-100 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                <span className="bg-[#EAF3FD] text-[#1E7BE8] border border-[#BFDBFE] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                   Edição
                 </span>
               </div>
-              <p className="text-xs text-stone-500">Editar Cardápio Semanal</p>
+              <p className="text-xs text-[#64748B]">Gerenciar Cardápio Semanal</p>
             </div>
           </div>
 
           <div className="flex items-center space-x-2">
             <button
               onClick={copyPublicLink}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-colors"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#F1F5F9] text-[#1A1F2B] hover:bg-[#E2E8F0] transition-colors border border-[#CBD5E1]"
               title="Copiar link que os colaboradores usam para ver o cardápio"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Link copiado!' : 'Copiar link do cardápio'}</span>
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-[#64748B]" />}
+              <span>{copied ? 'Link copiado!' : 'Copiar link público'}</span>
             </button>
 
             <a
               href="/"
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 text-stone-400 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-colors"
+              className="p-1.5 text-[#64748B] hover:text-[#1E7BE8] hover:bg-[#EAF3FD] rounded-lg transition-colors"
               title="Abrir cardápio público em nova aba"
             >
               <ExternalLink className="w-4 h-4" />
@@ -217,23 +217,23 @@ export default function EditMenuPage() {
       {/* Main Content */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6">
         {/* Navigation & Week Bar */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-4 mb-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-white rounded-2xl border border-[#E3E8EF] p-4 mb-6 shadow-card flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2 w-full sm:w-auto justify-between">
             <button
               onClick={() => handleWeekChange(-1)}
-              className="p-2 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+              className="p-2 rounded-xl text-[#64748B] hover:text-[#0F2742] hover:bg-[#F1F5F9] transition-colors"
               aria-label="Semana anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
 
             <div className="text-center px-3">
-              <span className="font-bold text-stone-900 text-base sm:text-lg block">
+              <span className="font-bold text-[#1A1F2B] text-base sm:text-lg block">
                 {data?.weekInfo ? `Semana de ${data.weekInfo.startDateStr} a ${data.weekInfo.endDateStr}` : 'Carregando...'}
               </span>
-              <span className="text-xs text-stone-500">
+              <span className="text-xs text-[#64748B]">
                 {data?.weekInfo.isCurrentWeek ? (
-                  <strong className="text-emerald-700 font-semibold">Semana Vigente</strong>
+                  <strong className="text-emerald-600 font-semibold">Semana Vigente</strong>
                 ) : (
                   <span>Próxima semana / Outra data</span>
                 )}
@@ -242,7 +242,7 @@ export default function EditMenuPage() {
 
             <button
               onClick={() => handleWeekChange(1)}
-              className="p-2 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+              className="p-2 rounded-xl text-[#64748B] hover:text-[#0F2742] hover:bg-[#F1F5F9] transition-colors"
               aria-label="Próxima semana"
             >
               <ChevronRight className="w-5 h-5" />
@@ -252,7 +252,7 @@ export default function EditMenuPage() {
           <div className="flex items-center space-x-2 w-full sm:w-auto justify-end">
             <button
               onClick={() => handleWeekChange(1)}
-              className="text-xs font-semibold px-3 py-2 rounded-xl bg-stone-100 text-stone-700 hover:bg-stone-200 transition-colors"
+              className="text-xs font-semibold px-3.5 py-2 rounded-xl bg-[#EAF3FD] text-[#1E7BE8] hover:bg-[#D9EAFE] border border-[#BFDBFE] transition-colors"
             >
               Planejar Próxima Semana →
             </button>
@@ -261,8 +261,8 @@ export default function EditMenuPage() {
 
         {/* Loading Spinner */}
         {loading && !menu && (
-          <div className="py-20 flex flex-col items-center justify-center text-stone-400">
-            <RefreshCw className="w-8 h-8 animate-spin mb-3 text-amber-600" />
+          <div className="py-20 flex flex-col items-center justify-center text-[#64748B]">
+            <RefreshCw className="w-8 h-8 animate-spin mb-3 text-[#1E7BE8]" />
             <p className="text-sm font-medium">Carregando campos do cardápio...</p>
           </div>
         )}
@@ -270,62 +270,64 @@ export default function EditMenuPage() {
         {/* Form Days */}
         {menu && (
           <div className="space-y-6">
-            <div className="bg-amber-50/70 border border-amber-200/70 rounded-xl px-4 py-2.5 text-xs text-amber-900 flex items-center justify-between">
-              <span>💡 <strong>Dica da cozinha:</strong> Preencha apenas as opções do dia. Campos deixados em branco (como sobremesa ou guarnição) não aparecem para os colaboradores.</span>
+            <div className="bg-[#EAF3FD] border border-[#BFDBFE] rounded-xl px-4 py-3 text-xs text-[#0F2742] flex items-center justify-between">
+              <span>💡 <strong>Dica da cozinha:</strong> Preencha apenas os pratos que serão servidos. Campos deixados vazios (como sobremesa) não serão exibidos na visualização pública.</span>
             </div>
+
             {daysInfo.map((day) => {
               const currentMeal = menu.days[day.key];
               return (
                 <div
                   key={day.key}
                   className={`bg-white rounded-2xl border transition-all ${
-                    day.isToday ? 'border-amber-400 shadow-md ring-1 ring-amber-400' : 'border-stone-200/90 shadow-xs'
+                    day.isToday ? 'border-[#1E7BE8] shadow-highlight ring-1 ring-[#1E7BE8]' : 'border-[#E3E8EF] shadow-card'
                   } overflow-hidden`}
                 >
-                  {/* Card Header */}
+                  {/* Header do Card */}
                   <div
                     className={`px-4 sm:px-6 py-3 flex items-center justify-between border-b ${
                       day.isToday
-                        ? 'bg-amber-500 text-white border-amber-600'
-                        : 'bg-stone-50/80 text-stone-800 border-stone-200'
+                        ? 'bg-gradient-to-r from-[#1E7BE8] via-[#2488F0] to-[#2DC6F0] text-white border-[#1E7BE8]'
+                        : 'bg-[#F8FAFC] border-[#E3E8EF] text-[#1A1F2B]'
                     }`}
                   >
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2.5">
                       <span className="font-bold text-base">{day.label}</span>
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${
-                          day.isToday ? 'bg-amber-700/60 text-white' : 'bg-stone-200 text-stone-600'
+                        className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
+                          day.isToday ? 'bg-white/20 text-white' : 'bg-[#E2E8F0] text-[#475366]'
                         }`}
                       >
                         {day.dateStr}
                       </span>
                     </div>
+
                     {day.isToday && (
-                      <span className="text-xs font-bold bg-white text-amber-900 px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center">
-                        <Sparkles className="w-3 h-3 mr-1 text-amber-600" /> Hoje
+                      <span className="text-[11px] font-extrabold uppercase bg-white text-[#1E7BE8] px-2.5 py-0.5 rounded-full tracking-wider shadow-xs">
+                        Hoje
                       </span>
                     )}
                   </div>
 
-                  {/* 4 Categorias Inputs */}
+                  {/* Form Inputs */}
                   <div className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Prato Principal */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-amber-900 mb-1">
-                        🍲 {CATEGORY_LABELS.pratoPrincipal.title}
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#1E7BE8] mb-1">
+                        🍗 {CATEGORY_LABELS.pratoPrincipal.title}
                       </label>
                       <textarea
                         rows={2}
                         value={currentMeal.pratoPrincipal}
                         onChange={(e) => handleFieldChange(day.key, 'pratoPrincipal', e.target.value)}
-                        placeholder="Ex: Frango assado com ervas"
-                        className="w-full text-sm rounded-xl border border-stone-200 p-2.5 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition resize-none bg-stone-50/30 focus:bg-white"
+                        placeholder="Ex: Frango grelhado ao molho de ervas finas"
+                        className="w-full text-sm rounded-xl border border-[#CBD5E1] p-2.5 focus:border-[#1E7BE8] focus:ring-2 focus:ring-[#1E7BE8]/20 outline-none transition resize-none bg-slate-50/40 focus:bg-white text-[#1A1F2B]"
                       />
                     </div>
 
                     {/* Guarnição */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-orange-950 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#475366] mb-1">
                         🍚 {CATEGORY_LABELS.guarnicao.title}
                       </label>
                       <textarea
@@ -333,13 +335,13 @@ export default function EditMenuPage() {
                         value={currentMeal.guarnicao}
                         onChange={(e) => handleFieldChange(day.key, 'guarnicao', e.target.value)}
                         placeholder="Ex: Arroz branco, feijão carioca e purê de batata"
-                        className="w-full text-sm rounded-xl border border-stone-200 p-2.5 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition resize-none bg-stone-50/30 focus:bg-white"
+                        className="w-full text-sm rounded-xl border border-[#CBD5E1] p-2.5 focus:border-[#1E7BE8] focus:ring-2 focus:ring-[#1E7BE8]/20 outline-none transition resize-none bg-slate-50/40 focus:bg-white text-[#1A1F2B]"
                       />
                     </div>
 
                     {/* Salada */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-emerald-950 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#15803D] mb-1">
                         🥗 {CATEGORY_LABELS.salada.title}
                       </label>
                       <textarea
@@ -347,24 +349,24 @@ export default function EditMenuPage() {
                         value={currentMeal.salada}
                         onChange={(e) => handleFieldChange(day.key, 'salada', e.target.value)}
                         placeholder="Ex: Alface americana, tomate e cenoura ralada"
-                        className="w-full text-sm rounded-xl border border-stone-200 p-2.5 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition resize-none bg-stone-50/30 focus:bg-white"
+                        className="w-full text-sm rounded-xl border border-[#CBD5E1] p-2.5 focus:border-[#1E7BE8] focus:ring-2 focus:ring-[#1E7BE8]/20 outline-none transition resize-none bg-slate-50/40 focus:bg-white text-[#1A1F2B]"
                       />
                     </div>
 
                     {/* Sobremesa */}
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <label className="text-xs font-bold uppercase tracking-wider text-purple-950">
+                        <label className="text-xs font-bold uppercase tracking-wider text-[#7E22CE]">
                           🍮 {CATEGORY_LABELS.sobremesa.title}
                         </label>
-                        <span className="text-[11px] text-stone-400 font-normal">opcional</span>
+                        <span className="text-[11px] text-[#64748B] font-normal">opcional</span>
                       </div>
                       <textarea
                         rows={2}
                         value={currentMeal.sobremesa}
                         onChange={(e) => handleFieldChange(day.key, 'sobremesa', e.target.value)}
-                        placeholder="Ex: Pudim de leite, fruta ou deixe em branco se não houver"
-                        className="w-full text-sm rounded-xl border border-stone-200 p-2.5 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition resize-none bg-stone-50/30 focus:bg-white"
+                        placeholder="Ex: Pudim de leite, fruta ou deixe em branco"
+                        className="w-full text-sm rounded-xl border border-[#CBD5E1] p-2.5 focus:border-[#1E7BE8] focus:ring-2 focus:ring-[#1E7BE8]/20 outline-none transition resize-none bg-slate-50/40 focus:bg-white text-[#1A1F2B]"
                       />
                     </div>
                   </div>
@@ -376,10 +378,10 @@ export default function EditMenuPage() {
       </main>
 
       {/* Floating Bottom Bar for Save Action */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 p-3 sm:p-4 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E3E8EF] p-3 sm:p-4 shadow-lg">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
-          <div className="text-xs text-stone-500 hidden sm:block">
-            <span>Dica: Salve sempre que fizer alterações importantes.</span>
+          <div className="text-xs text-[#64748B] hidden sm:block">
+            <span>Dica: Salve sempre que fizer alterações importantes no cardápio.</span>
           </div>
 
           <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
@@ -402,8 +404,8 @@ export default function EditMenuPage() {
               disabled={saveStatus === 'saving' || loading}
               className={`flex-1 sm:flex-none flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md transition-all active:scale-[0.98] ${
                 saveStatus === 'saving'
-                  ? 'bg-amber-400 cursor-not-allowed'
-                  : 'bg-amber-600 hover:bg-amber-700 hover:shadow-lg'
+                  ? 'bg-[#1E7BE8]/60 cursor-not-allowed'
+                  : 'bg-[#1E7BE8] hover:bg-[#1A6CD0] hover:shadow-highlight'
               }`}
             >
               {saveStatus === 'saving' ? (
@@ -424,4 +426,3 @@ export default function EditMenuPage() {
     </div>
   );
 }
-

@@ -1,19 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bg: #F5F7FA;
+  --ink: #1A1F2B;
+  --body: #475366;
+  --line: #E3E8EF;
+  --blue: #1E7BE8;
+  --cyan: #2DC6F0;
+  --navy: #0F2742;
+  --soft: #EAF3FD;
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: #faf8f5;
-  color: #2b2825;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar sutil para listas longas */
+::selection {
+  background: rgba(45, 198, 240, 0.28);
+  color: #0F2742;
+}
+
+/* Scrollbar com acabamento sutil Banlek */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -24,11 +38,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4cfca;
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b5afa9;
+  background: #94A3B8;
 }
-

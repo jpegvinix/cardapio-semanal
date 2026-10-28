@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { WeekMenu, DayInfo, CATEGORY_LABELS } from '@/lib/types';
+import { BanlekLogo } from '@/components/BanlekLogo';
 import {
   ChevronLeft,
   ChevronRight,
@@ -10,7 +11,6 @@ import {
   Calendar,
   Clock,
   RefreshCw,
-  ChefHat,
 } from 'lucide-react';
 
 interface ApiResponse {
@@ -90,28 +90,35 @@ export default function PublicMenuPage() {
     );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf8f5]">
+    <div className="min-h-screen flex flex-col bg-[#F5F7FA]">
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-stone-200/80 shadow-xs">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-[#E3E8EF] shadow-xs">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-700">
-              <ChefHat className="w-6 h-6" />
+            <div className="flex items-center">
+              <BanlekLogo className="h-6 w-auto text-[#1E7BE8]" />
             </div>
+            <div className="h-4 w-px bg-slate-200 hidden xs:block" />
             <div>
-              <h1 className="text-lg sm:text-xl font-bold tracking-tight text-stone-900 leading-tight">
-                Cardápio Semanal
-              </h1>
-              <p className="text-xs text-stone-500 font-medium">Cozinha da Empresa</p>
+              <div className="flex items-center space-x-2">
+                <h1 className="text-base sm:text-lg font-bold tracking-tight text-[#1A1F2B] leading-tight">
+                  Cardápio da Cozinha
+                </h1>
+                <span className="hidden sm:inline-block text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-[#EAF3FD] text-[#1E7BE8] border border-[#BFDBFE]">
+                  #forçaazul
+                </span>
+              </div>
+              <p className="text-xs text-[#64748B] font-medium">Alimentação do time Banlek</p>
             </div>
           </div>
 
           <button
             onClick={() => fetchMenu(activeWeekId)}
-            className="p-2 text-stone-400 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-colors"
+            className="p-2 text-[#64748B] hover:text-[#1E7BE8] hover:bg-[#EAF3FD] rounded-xl transition-colors"
             title="Atualizar cardápio"
+            aria-label="Atualizar cardápio"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#1E7BE8]' : ''}`} />
           </button>
         </div>
       </header>
@@ -119,11 +126,11 @@ export default function PublicMenuPage() {
       {/* Main Content */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Week Selector Bar */}
-        <div className="bg-white rounded-2xl border border-stone-200/90 p-3 sm:p-4 mb-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="bg-white rounded-2xl border border-[#E3E8EF] p-3 sm:p-4 mb-6 shadow-card flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start">
             <button
               onClick={() => handleWeekChange(-1)}
-              className="p-2 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+              className="p-2 rounded-xl text-[#64748B] hover:text-[#0F2742] hover:bg-[#F1F5F9] transition-colors"
               aria-label="Semana anterior"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -131,14 +138,14 @@ export default function PublicMenuPage() {
 
             <div className="text-center px-2">
               <div className="flex items-center justify-center space-x-1.5">
-                <Calendar className="w-4 h-4 text-amber-600" />
-                <span className="font-semibold text-stone-800 text-sm sm:text-base">
+                <Calendar className="w-4 h-4 text-[#1E7BE8]" />
+                <span className="font-semibold text-[#1A1F2B] text-sm sm:text-base">
                   {data?.weekInfo ? `Semana de ${data.weekInfo.startDateStr} a ${data.weekInfo.endDateStr}` : 'Carregando...'}
                 </span>
               </div>
-              <p className="text-xs text-stone-500 mt-0.5">
+              <p className="text-xs text-[#64748B] mt-0.5">
                 {data?.weekInfo.isCurrentWeek ? (
-                  <span className="inline-flex items-center text-emerald-600 font-medium">
+                  <span className="inline-flex items-center text-emerald-600 font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
                     Semana atual
                   </span>
@@ -150,7 +157,7 @@ export default function PublicMenuPage() {
 
             <button
               onClick={() => handleWeekChange(1)}
-              className="p-2 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+              className="p-2 rounded-xl text-[#64748B] hover:text-[#0F2742] hover:bg-[#F1F5F9] transition-colors"
               aria-label="Próxima semana"
             >
               <ChevronRight className="w-5 h-5" />
@@ -160,7 +167,7 @@ export default function PublicMenuPage() {
           {!data?.weekInfo.isCurrentWeek && (
             <button
               onClick={handleResetToCurrent}
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 hover:bg-amber-100 transition-colors border border-amber-200/60"
+              className="text-xs font-semibold px-3.5 py-1.5 rounded-xl bg-[#EAF3FD] text-[#1E7BE8] hover:bg-[#D9EAFE] transition-colors border border-[#BFDBFE]"
             >
               Voltar para semana atual
             </button>
@@ -169,23 +176,23 @@ export default function PublicMenuPage() {
 
         {/* Loading State */}
         {loading && !data && (
-          <div className="py-20 flex flex-col items-center justify-center text-stone-400">
-            <RefreshCw className="w-8 h-8 animate-spin mb-3 text-amber-600" />
+          <div className="py-20 flex flex-col items-center justify-center text-[#64748B]">
+            <RefreshCw className="w-8 h-8 animate-spin mb-3 text-[#1E7BE8]" />
             <p className="text-sm font-medium">Carregando cardápio da semana...</p>
           </div>
         )}
 
         {/* Empty Week State */}
         {!loading && !hasAnyMeal && (
-          <div className="bg-white rounded-3xl border border-dashed border-stone-300 p-8 sm:p-12 text-center my-6 shadow-xs">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 mb-4">
+          <div className="bg-white rounded-3xl border border-dashed border-[#CBD5E1] p-8 sm:p-12 text-center my-6 shadow-card">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-[#EAF3FD] flex items-center justify-center text-[#1E7BE8] mb-4">
               <UtensilsCrossed className="w-7 h-7" />
             </div>
-            <h3 className="text-lg font-bold text-stone-800 mb-1">
+            <h3 className="text-lg font-bold text-[#1A1F2B] mb-1">
               Cardápio em preparação
             </h3>
-            <p className="text-sm text-stone-500 max-w-md mx-auto">
-              Nossa equipe da cozinha está preparando as delícias desta semana. As refeições serão publicadas em breve por aqui!
+            <p className="text-sm text-[#475366] max-w-md mx-auto">
+              Nossa equipe da cozinha Banlek está preparando as refeições desta semana. Os pratos serão publicados em breve por aqui!
             </p>
           </div>
         )}
@@ -207,16 +214,16 @@ export default function PublicMenuPage() {
                 id={day.isToday ? 'hoje' : undefined}
                 className={`rounded-2xl transition-all duration-200 overflow-hidden ${
                   day.isToday
-                    ? 'bg-white ring-2 ring-amber-500 shadow-md sm:shadow-lg'
-                    : 'bg-white border border-stone-200/80 shadow-xs'
+                    ? 'bg-white ring-2 ring-[#1E7BE8] shadow-highlight'
+                    : 'bg-white border border-[#E3E8EF] shadow-card'
                 }`}
               >
                 {/* Header do Dia */}
                 <div
                   className={`px-4 sm:px-6 py-3.5 flex items-center justify-between border-b ${
                     day.isToday
-                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white border-amber-600'
-                      : 'bg-stone-50/70 border-stone-200/70 text-stone-800'
+                      ? 'bg-gradient-to-r from-[#1E7BE8] via-[#2488F0] to-[#2DC6F0] text-white border-[#1E7BE8]'
+                      : 'bg-[#F8FAFC] border-[#E3E8EF] text-[#1A1F2B]'
                   }`}
                 >
                   <div className="flex items-center space-x-2.5">
@@ -224,10 +231,10 @@ export default function PublicMenuPage() {
                       {day.label}
                     </span>
                     <span
-                      className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                      className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
                         day.isToday
-                          ? 'bg-amber-700/60 text-amber-50'
-                          : 'bg-stone-200/80 text-stone-600'
+                          ? 'bg-white/20 text-white backdrop-blur-xs'
+                          : 'bg-[#E2E8F0] text-[#475366]'
                       }`}
                     >
                       {day.dateStr}
@@ -235,8 +242,8 @@ export default function PublicMenuPage() {
                   </div>
 
                   {day.isToday && (
-                    <div className="flex items-center space-x-1.5 bg-white text-amber-900 text-xs font-bold px-3 py-1 rounded-full shadow-xs uppercase tracking-wide">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                    <div className="flex items-center space-x-1.5 bg-white text-[#1E7BE8] text-xs font-extrabold px-3 py-1 rounded-full shadow-xs uppercase tracking-wider">
+                      <Sparkles className="w-3.5 h-3.5 text-[#2DC6F0]" />
                       <span>Hoje</span>
                     </div>
                   )}
@@ -248,12 +255,12 @@ export default function PublicMenuPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Prato Principal */}
                       {meal.pratoPrincipal.trim() && (
-                        <div className="bg-amber-50/40 rounded-xl p-3.5 border border-amber-100">
-                          <div className="flex items-center space-x-2 mb-1.5 text-amber-900 font-semibold text-xs tracking-wider uppercase">
+                        <div className="bg-[#F0F7FF] rounded-xl p-4 border border-[#BFDBFE]">
+                          <div className="flex items-center space-x-2 mb-1.5 text-[#1E7BE8] font-bold text-xs tracking-wider uppercase">
                             <span>{CATEGORY_LABELS.pratoPrincipal.icon}</span>
                             <span>{CATEGORY_LABELS.pratoPrincipal.title}</span>
                           </div>
-                          <p className="text-stone-800 font-medium text-sm leading-relaxed whitespace-pre-line">
+                          <p className="text-[#0F2742] font-semibold text-sm leading-relaxed whitespace-pre-line">
                             {meal.pratoPrincipal}
                           </p>
                         </div>
@@ -261,12 +268,12 @@ export default function PublicMenuPage() {
 
                       {/* Guarnição */}
                       {meal.guarnicao.trim() && (
-                        <div className="bg-orange-50/30 rounded-xl p-3.5 border border-orange-100/80">
-                          <div className="flex items-center space-x-2 mb-1.5 text-orange-950 font-semibold text-xs tracking-wider uppercase">
+                        <div className="bg-[#F8FAFC] rounded-xl p-4 border border-[#E2E8F0]">
+                          <div className="flex items-center space-x-2 mb-1.5 text-[#475366] font-bold text-xs tracking-wider uppercase">
                             <span>{CATEGORY_LABELS.guarnicao.icon}</span>
                             <span>{CATEGORY_LABELS.guarnicao.title}</span>
                           </div>
-                          <p className="text-stone-800 font-medium text-sm leading-relaxed whitespace-pre-line">
+                          <p className="text-[#1A1F2B] font-medium text-sm leading-relaxed whitespace-pre-line">
                             {meal.guarnicao}
                           </p>
                         </div>
@@ -274,12 +281,12 @@ export default function PublicMenuPage() {
 
                       {/* Salada */}
                       {meal.salada.trim() && (
-                        <div className="bg-emerald-50/40 rounded-xl p-3.5 border border-emerald-100">
-                          <div className="flex items-center space-x-2 mb-1.5 text-emerald-900 font-semibold text-xs tracking-wider uppercase">
+                        <div className="bg-[#F0FDF4] rounded-xl p-4 border border-[#BBF7D0]">
+                          <div className="flex items-center space-x-2 mb-1.5 text-[#15803D] font-bold text-xs tracking-wider uppercase">
                             <span>{CATEGORY_LABELS.salada.icon}</span>
                             <span>{CATEGORY_LABELS.salada.title}</span>
                           </div>
-                          <p className="text-stone-800 font-medium text-sm leading-relaxed whitespace-pre-line">
+                          <p className="text-[#14532D] font-medium text-sm leading-relaxed whitespace-pre-line">
                             {meal.salada}
                           </p>
                         </div>
@@ -287,19 +294,19 @@ export default function PublicMenuPage() {
 
                       {/* Sobremesa */}
                       {meal.sobremesa.trim() && (
-                        <div className="bg-purple-50/40 rounded-xl p-3.5 border border-purple-100">
-                          <div className="flex items-center space-x-2 mb-1.5 text-purple-900 font-semibold text-xs tracking-wider uppercase">
+                        <div className="bg-[#FAF5FF] rounded-xl p-4 border border-[#E9D5FF]">
+                          <div className="flex items-center space-x-2 mb-1.5 text-[#7E22CE] font-bold text-xs tracking-wider uppercase">
                             <span>{CATEGORY_LABELS.sobremesa.icon}</span>
                             <span>{CATEGORY_LABELS.sobremesa.title}</span>
                           </div>
-                          <p className="text-stone-800 font-medium text-sm leading-relaxed whitespace-pre-line">
+                          <p className="text-[#581C87] font-medium text-sm leading-relaxed whitespace-pre-line">
                             {meal.sobremesa}
                           </p>
                         </div>
                       )}
                     </div>
                   ) : (
-                    <p className="text-stone-400 text-sm italic py-2">
+                    <p className="text-[#64748B] text-sm italic py-2">
                       Nenhuma refeição cadastrada para este dia.
                     </p>
                   )}
@@ -311,16 +318,17 @@ export default function PublicMenuPage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-12 border-t border-stone-200/80 py-6 text-center text-xs text-stone-400">
-        <p className="flex items-center justify-center space-x-1.5">
-          <span>Feito com carinho pela equipe da cozinha</span>
+      <footer className="mt-12 border-t border-[#E3E8EF] py-6 text-center text-xs text-[#64748B]">
+        <p className="flex flex-wrap items-center justify-center gap-2">
+          <span>Feito com carinho pela equipe da cozinha Banlek</span>
+          <span>•</span>
+          <span className="font-semibold text-[#1E7BE8]">#forçaazul</span>
           <span>•</span>
           <span className="flex items-center">
-            <Clock className="w-3.5 h-3.5 mr-1" /> Atualizado em tempo real
+            <Clock className="w-3.5 h-3.5 mr-1 text-[#64748B]" /> Atualizado em tempo real
           </span>
         </p>
       </footer>
     </div>
   );
 }
-
