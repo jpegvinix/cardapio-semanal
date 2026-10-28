@@ -62,3 +62,4 @@ export function createEmptyWeekMenu(weekId: string, startDate = '', endDate = ''
     },
   };
 }
+

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState, use } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { WeekMenu, DayInfo, DayKey, DayMeal, CATEGORY_LABELS } from '@/lib/types';
 import {
   Save,
@@ -27,9 +28,9 @@ interface ApiResponse {
   };
 }
 
-export default function EditMenuPage({ params }: { params: Promise<{ token: string }> }) {
-  const resolvedParams = use(params);
-  const token = resolvedParams.token;
+export default function EditMenuPage() {
+  const routeParams = useParams();
+  const token = typeof routeParams?.token === 'string' ? routeParams.token : '';
 
   const [data, setData] = useState<ApiResponse | null>(null);
   const [menu, setMenu] = useState<WeekMenu | null>(null);
@@ -417,3 +418,4 @@ export default function EditMenuPage({ params }: { params: Promise<{ token: stri
     </div>
   );
 }
+

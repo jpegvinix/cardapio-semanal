@@ -130,3 +130,4 @@ export async function saveWeekMenu(menu: WeekMenu): Promise<boolean> {
 
   return true;
 }
+

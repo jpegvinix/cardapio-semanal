@@ -44,3 +44,4 @@ Para que o cardápio salvo pela cozinha fique permanentemente gravado na nuvem:
 1. No dashboard do seu projeto na Vercel, acesse a aba **Storage**.
 2. Clique em **Connect Store** -> Escolha **KV** (ou **Upstash Redis**).
 3. Pronto! As variáveis `KV_REST_API_URL` e `KV_REST_API_TOKEN` são configuradas automaticamente.
+
