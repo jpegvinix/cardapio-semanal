@@ -270,6 +270,9 @@ export default function EditMenuPage() {
         {/* Form Days */}
         {menu && (
           <div className="space-y-6">
+            <div className="bg-amber-50/70 border border-amber-200/70 rounded-xl px-4 py-2.5 text-xs text-amber-900 flex items-center justify-between">
+              <span>💡 <strong>Dica da cozinha:</strong> Preencha apenas as opções do dia. Campos deixados em branco (como sobremesa ou guarnição) não aparecem para os colaboradores.</span>
+            </div>
             {daysInfo.map((day) => {
               const currentMeal = menu.days[day.key];
               return (
@@ -350,14 +353,17 @@ export default function EditMenuPage() {
 
                     {/* Sobremesa */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-purple-950 mb-1">
-                        🍮 {CATEGORY_LABELS.sobremesa.title}
-                      </label>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-xs font-bold uppercase tracking-wider text-purple-950">
+                          🍮 {CATEGORY_LABELS.sobremesa.title}
+                        </label>
+                        <span className="text-[11px] text-stone-400 font-normal">opcional</span>
+                      </div>
                       <textarea
                         rows={2}
                         value={currentMeal.sobremesa}
                         onChange={(e) => handleFieldChange(day.key, 'sobremesa', e.target.value)}
-                        placeholder="Ex: Pudim de leite ou fruta da estação"
+                        placeholder="Ex: Pudim de leite, fruta ou deixe em branco se não houver"
                         className="w-full text-sm rounded-xl border border-stone-200 p-2.5 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition resize-none bg-stone-50/30 focus:bg-white"
                       />
                     </div>
