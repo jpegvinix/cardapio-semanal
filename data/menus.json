@@ -7,37 +7,37 @@
     "weekNumber": 44,
     "days": {
       "segunda": {
-        "pratoPrincipal": "Arroz, feijão, carne de panela com azeitona",
-        "guarnicao": "Mandioca cozida na manteiga",
-        "salada": "Alface com rabanete",
-        "sobremesa": "Mousse de maracujá"
+        "pratoPrincipal": "",
+        "guarnicao": "",
+        "salada": "",
+        "sobremesa": ""
       },
       "terca": {
-        "pratoPrincipal": "Arroz, feijão, costelinha suína",
-        "guarnicao": "Batata rústica com alecrim",
-        "salada": "Alface, chuchu e ovos cozidos",
-        "sobremesa": "Spumone de morango"
+        "pratoPrincipal": "",
+        "guarnicao": "",
+        "salada": "",
+        "sobremesa": ""
       },
       "quarta": {
-        "pratoPrincipal": "Arroz, feijão, peixe assado",
-        "guarnicao": "Brócolis sauté",
-        "salada": "Mix de repolho",
-        "sobremesa": "Pudim de leite"
+        "pratoPrincipal": "",
+        "guarnicao": "",
+        "salada": "",
+        "sobremesa": ""
       },
       "quinta": {
-        "pratoPrincipal": "Arroz, filé de frango grelhado",
-        "guarnicao": "Creme de milho",
-        "salada": "Alface com cenoura ralada",
-        "sobremesa": "Mousse de limão"
+        "pratoPrincipal": "",
+        "guarnicao": "",
+        "salada": "",
+        "sobremesa": ""
       },
       "sexta": {
-        "pratoPrincipal": "Arroz, feijoada light",
-        "guarnicao": "Farofa e couve",
-        "salada": "Vinagrete",
-        "sobremesa": "Laranja"
+        "pratoPrincipal": "",
+        "guarnicao": "",
+        "salada": "",
+        "sobremesa": ""
       }
     },
-    "updatedAt": "2026-10-28T18:11:00.000Z"
+    "updatedAt": "2026-10-28T18:19:00.000Z"
   },
   "2026-W45": {
     "weekId": "2026-W45",
@@ -47,46 +47,6 @@
     "weekNumber": 45,
     "days": {
       "segunda": {
-        "pratoPrincipal": "Espaguete ao molho branco e bacon, bife acebolado",
-        "guarnicao": "",
-        "salada": "Alface com beterraba cozida",
-        "sobremesa": "Fruta"
-      },
-      "terca": {
-        "pratoPrincipal": "Arroz, feijão, strogonoff de carne",
-        "guarnicao": "Batata palha",
-        "salada": "Pepino com tomate",
-        "sobremesa": "Arroz doce"
-      },
-      "quarta": {
-        "pratoPrincipal": "Arroz, feijão, panqueca de carne",
-        "guarnicao": "Mix de legumes",
-        "salada": "Alface com cenoura ralada",
-        "sobremesa": "Fruta"
-      },
-      "quinta": {
-        "pratoPrincipal": "Arroz, feijão, parmegiana de frango",
-        "guarnicao": "Purê de batata",
-        "salada": "Beterraba ralada",
-        "sobremesa": "Mousse de morango"
-      },
-      "sexta": {
-        "pratoPrincipal": "Arroz, lasanha, omelete",
-        "guarnicao": "Legumes assados",
-        "salada": "Couve",
-        "sobremesa": "Fruta"
-      }
-    },
-    "updatedAt": "2026-10-28T18:11:00.000Z"
-  },
-  "2026-W41": {
-    "weekId": "2026-W41",
-    "startDate": "05/10",
-    "endDate": "09/10",
-    "year": 2026,
-    "weekNumber": 41,
-    "days": {
-      "segunda": {
         "pratoPrincipal": "Arroz, feijão, carne de panela com azeitona",
         "guarnicao": "Mandioca cozida na manteiga",
         "salada": "Alface com rabanete",
@@ -117,14 +77,14 @@
         "sobremesa": "Laranja"
       }
     },
-    "updatedAt": "2026-10-28T18:11:00.000Z"
+    "updatedAt": "2026-10-28T18:19:00.000Z"
   },
-  "2026-W42": {
-    "weekId": "2026-W42",
-    "startDate": "12/10",
-    "endDate": "16/10",
+  "2026-W46": {
+    "weekId": "2026-W46",
+    "startDate": "09/11",
+    "endDate": "13/11",
     "year": 2026,
-    "weekNumber": 42,
+    "weekNumber": 46,
     "days": {
       "segunda": {
         "pratoPrincipal": "Espaguete ao molho branco e bacon, bife acebolado",
@@ -157,6 +117,6 @@
         "sobremesa": "Fruta"
       }
     },
-    "updatedAt": "2026-10-28T18:11:00.000Z"
+    "updatedAt": "2026-10-28T18:19:00.000Z"
   }
 }
