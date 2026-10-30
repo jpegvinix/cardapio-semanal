@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { WeekMenu, DayInfo, DayKey, DayMeal, CATEGORY_LABELS } from '@/lib/types';
+import { offsetWeekId } from '@/lib/date-utils';
 import { BanlekLogo } from '@/components/BanlekLogo';
 import {
   Save,
@@ -39,6 +40,9 @@ export default function EditMenuPage() {
   const [authError, setAuthError] = useState(false);
   const [currentWeekId, setCurrentWeekId] = useState<string>('');
   const [activeWeekId, setActiveWeekId] = useState<string>('');
+  const [savedDays, setSavedDays] = useState<string>('');
+
+  const hasUnsavedChanges = !!menu && JSON.stringify(menu.days) !== savedDays;
 
   const fetchMenu = async (weekId?: string) => {
     setLoading(true);
@@ -50,6 +54,7 @@ export default function EditMenuPage() {
         const json: ApiResponse = await res.json();
         setData(json);
         setMenu(json.menu);
+        setSavedDays(JSON.stringify(json.menu.days));
         setActiveWeekId(json.menu.weekId);
         if (!currentWeekId) {
           setCurrentWeekId(json.menu.weekId);
@@ -65,6 +70,16 @@ export default function EditMenuPage() {
   useEffect(() => {
     fetchMenu();
   }, []);
+
+  useEffect(() => {
+    if (!hasUnsavedChanges) return;
+    const warnBeforeLeaving = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+    window.addEventListener('beforeunload', warnBeforeLeaving);
+    return () => window.removeEventListener('beforeunload', warnBeforeLeaving);
+  }, [hasUnsavedChanges]);
 
   const handleFieldChange = (dayKey: DayKey, category: keyof DayMeal, value: string) => {
     if (!menu) return;
@@ -105,6 +120,7 @@ export default function EditMenuPage() {
       }
 
       if (res.ok) {
+        setSavedDays(JSON.stringify(menu.days));
         setSaveStatus('saved');
         setTimeout(() => {
           setSaveStatus((prev) => (prev === 'saved' ? 'idle' : prev));
@@ -120,19 +136,13 @@ export default function EditMenuPage() {
 
   const handleWeekChange = (offset: number) => {
     if (!activeWeekId) return;
-    const parts = activeWeekId.split('-W');
-    if (parts.length !== 2) return;
-    let year = parseInt(parts[0], 10);
-    let week = parseInt(parts[1], 10) + offset;
-    if (week > 52) {
-      week = 1;
-      year += 1;
-    } else if (week < 1) {
-      week = 52;
-      year -= 1;
+    if (
+      hasUnsavedChanges &&
+      !window.confirm('Você tem alterações não salvas. Sair desta semana sem salvar?')
+    ) {
+      return;
     }
-    const nextWeekId = `${year}-W${week.toString().padStart(2, '0')}`;
-    fetchMenu(nextWeekId);
+    fetchMenu(offsetWeekId(activeWeekId, offset));
   };
 
   const copyPublicLink = () => {

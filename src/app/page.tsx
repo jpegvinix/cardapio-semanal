@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { WeekMenu, DayInfo, CATEGORY_LABELS } from '@/lib/types';
+import { offsetWeekId } from '@/lib/date-utils';
 import { BanlekLogo } from '@/components/BanlekLogo';
 import {
   ChevronLeft,
@@ -55,19 +56,7 @@ export default function PublicMenuPage() {
 
   const handleWeekChange = (offset: number) => {
     if (!activeWeekId) return;
-    const parts = activeWeekId.split('-W');
-    if (parts.length !== 2) return;
-    let year = parseInt(parts[0], 10);
-    let week = parseInt(parts[1], 10) + offset;
-    if (week > 52) {
-      week = 1;
-      year += 1;
-    } else if (week < 1) {
-      week = 52;
-      year -= 1;
-    }
-    const nextWeekId = `${year}-W${week.toString().padStart(2, '0')}`;
-    fetchMenu(nextWeekId);
+    fetchMenu(offsetWeekId(activeWeekId, offset));
   };
 
   const handleResetToCurrent = () => {

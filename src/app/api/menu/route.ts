@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { token, menu } = body as { token?: string; menu?: WeekMenu };
 
-    if (!token || token !== ADMIN_SECRET_TOKEN) {
+    if (!ADMIN_SECRET_TOKEN || !token || token !== ADMIN_SECRET_TOKEN) {
       return NextResponse.json(
         { success: false, message: 'Não autorizado. Link de edição inválido.' },
         { status: 401 }
@@ -47,7 +47,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await saveWeekMenu(menu);
+    const saved = await saveWeekMenu(menu);
+
+    if (!saved) {
+      return NextResponse.json(
+        { success: false, message: 'Não foi possível salvar. Tente novamente.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
