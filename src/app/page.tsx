@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { WeekMenu, DayInfo, CATEGORY_LABELS } from '@/lib/types';
+import { WeekMenu, DayInfo, CATEGORY_LABELS, EXTRA_MEALS, hasMealContent } from '@/lib/types';
 import { offsetWeekId } from '@/lib/date-utils';
 import { BanlekLogo } from '@/components/BanlekLogo';
 import {
@@ -67,15 +67,7 @@ export default function PublicMenuPage() {
   const menuDays = data?.menu.days;
 
   // Verifica se a semana tem pelo menos uma refeição cadastrada
-  const hasAnyMeal =
-    menuDays &&
-    Object.values(menuDays).some(
-      (day) =>
-        day.pratoPrincipal.trim() ||
-        day.guarnicao.trim() ||
-        day.salada.trim() ||
-        day.sobremesa.trim()
-    );
+  const hasAnyMeal = menuDays && Object.values(menuDays).some(hasMealContent);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F5F7FA]">
@@ -184,12 +176,7 @@ export default function PublicMenuPage() {
         <div className="space-y-4 sm:space-y-6">
           {daysInfo.map((day) => {
             const meal = menuDays ? menuDays[day.key] : null;
-            const hasFood =
-              meal &&
-              (meal.pratoPrincipal.trim() ||
-                meal.guarnicao.trim() ||
-                meal.salada.trim() ||
-                meal.sobremesa.trim());
+            const hasFood = meal && hasMealContent(meal);
 
             return (
               <section
@@ -286,6 +273,22 @@ export default function PublicMenuPage() {
                             {meal.sobremesa}
                           </p>
                         </div>
+                      )}
+
+                      {/* Café da tarde e Jantar */}
+                      {EXTRA_MEALS.map(
+                        (extra) =>
+                          meal[extra]?.trim() && (
+                            <div key={extra} className="bg-[#FFFBEB] rounded-xl p-4 border border-[#FDE68A]">
+                              <div className="flex items-center space-x-2 mb-1.5 text-[#B45309] font-bold text-xs tracking-wider uppercase">
+                                <span>{CATEGORY_LABELS[extra].icon}</span>
+                                <span>{CATEGORY_LABELS[extra].title}</span>
+                              </div>
+                              <p className="text-[#78350F] font-medium text-sm leading-relaxed whitespace-pre-line">
+                                {meal[extra]}
+                              </p>
+                            </div>
+                          )
                       )}
                     </div>
                   ) : (

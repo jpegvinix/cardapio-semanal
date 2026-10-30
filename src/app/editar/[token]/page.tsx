@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { WeekMenu, DayInfo, DayKey, DayMeal, CATEGORY_LABELS } from '@/lib/types';
+import {
+  WeekMenu,
+  DayInfo,
+  DayKey,
+  DayMeal,
+  ExtraMealKey,
+  CATEGORY_LABELS,
+  EXTRA_MEALS,
+} from '@/lib/types';
 import { offsetWeekId } from '@/lib/date-utils';
 import { BanlekLogo } from '@/components/BanlekLogo';
 import {
@@ -13,6 +21,7 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   ArrowRight,
   RefreshCw,
 } from 'lucide-react';
@@ -41,6 +50,8 @@ export default function EditMenuPage() {
   const [currentWeekId, setCurrentWeekId] = useState<string>('');
   const [activeWeekId, setActiveWeekId] = useState<string>('');
   const [savedDays, setSavedDays] = useState<string>('');
+  const [advancedOpen, setAdvancedOpen] = useState<Partial<Record<DayKey, boolean>>>({});
+  const [extrasEnabled, setExtrasEnabled] = useState<Record<string, boolean>>({});
 
   const hasUnsavedChanges = !!menu && JSON.stringify(menu.days) !== savedDays;
 
@@ -55,6 +66,8 @@ export default function EditMenuPage() {
         setData(json);
         setMenu(json.menu);
         setSavedDays(JSON.stringify(json.menu.days));
+        setAdvancedOpen({});
+        setExtrasEnabled({});
         setActiveWeekId(json.menu.weekId);
         if (!currentWeekId) {
           setCurrentWeekId(json.menu.weekId);
@@ -95,6 +108,19 @@ export default function EditMenuPage() {
     });
     if (saveStatus === 'saved') {
       setSaveStatus('idle');
+    }
+  };
+
+  const isExtraEnabled = (dayKey: DayKey, extra: ExtraMealKey) =>
+    extrasEnabled[`${dayKey}.${extra}`] ?? !!menu?.days[dayKey][extra];
+
+  const handleExtraToggle = (dayKey: DayKey, extra: ExtraMealKey, enabled: boolean) => {
+    if (!menu) return;
+    setExtrasEnabled({ ...extrasEnabled, [`${dayKey}.${extra}`]: enabled });
+    if (!enabled) {
+      // Desmarcar remove o texto, para ele não continuar no cardápio público
+      const { [extra]: _removed, ...remaining } = menu.days[dayKey];
+      setMenu({ ...menu, days: { ...menu.days, [dayKey]: remaining } });
     }
   };
 
@@ -282,6 +308,8 @@ export default function EditMenuPage() {
           <div className="space-y-6">
             {daysInfo.map((day) => {
               const currentMeal = menu.days[day.key];
+              const isAdvancedOpen =
+                advancedOpen[day.key] ?? EXTRA_MEALS.some((extra) => !!currentMeal[extra]);
               return (
                 <div
                   key={day.key}
@@ -375,6 +403,59 @@ export default function EditMenuPage() {
                         className="w-full text-sm rounded-xl border border-[#CBD5E1] p-2.5 focus:border-[#1E7BE8] focus:ring-2 focus:ring-[#1E7BE8]/20 outline-none transition resize-none bg-slate-50/40 focus:bg-white text-[#1A1F2B]"
                       />
                     </div>
+                  </div>
+
+                  {/* Avançado: refeições que só existem em alguns dias */}
+                  <div className="border-t border-[#E3E8EF]">
+                    <button
+                      type="button"
+                      onClick={() => setAdvancedOpen({ ...advancedOpen, [day.key]: !isAdvancedOpen })}
+                      aria-expanded={isAdvancedOpen}
+                      className="w-full px-4 sm:px-6 py-3 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#475366] hover:bg-[#F8FAFC] transition-colors"
+                    >
+                      <span>Avançado</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${isAdvancedOpen ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {isAdvancedOpen && (
+                      <div className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-4">
+                        <div className="flex flex-wrap gap-x-6 gap-y-2">
+                          {EXTRA_MEALS.map((extra) => (
+                            <label
+                              key={extra}
+                              className="flex items-center space-x-2 text-sm font-medium text-[#1A1F2B] cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={isExtraEnabled(day.key, extra)}
+                                onChange={(e) => handleExtraToggle(day.key, extra, e.target.checked)}
+                                className="w-4 h-4 rounded accent-[#1E7BE8]"
+                              />
+                              <span>{CATEGORY_LABELS[extra].title}</span>
+                            </label>
+                          ))}
+                        </div>
+
+                        {EXTRA_MEALS.some((extra) => isExtraEnabled(day.key, extra)) && (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {EXTRA_MEALS.filter((extra) => isExtraEnabled(day.key, extra)).map((extra) => (
+                              <div key={extra}>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-[#B45309] mb-1">
+                                  {CATEGORY_LABELS[extra].icon} {CATEGORY_LABELS[extra].title}
+                                </label>
+                                <textarea
+                                  rows={2}
+                                  value={currentMeal[extra] ?? ''}
+                                  onChange={(e) => handleFieldChange(day.key, extra, e.target.value)}
+                                  placeholder={extra === 'jantar' ? 'Ex: Sopa de legumes e pão' : 'Ex: Bolo de milho e café'}
+                                  className="w-full text-sm rounded-xl border border-[#CBD5E1] p-2.5 focus:border-[#1E7BE8] focus:ring-2 focus:ring-[#1E7BE8]/20 outline-none transition resize-none bg-slate-50/40 focus:bg-white text-[#1A1F2B]"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               );

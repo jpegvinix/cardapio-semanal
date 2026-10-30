@@ -5,7 +5,13 @@ export interface DayMeal {
   guarnicao: string;
   salada: string;
   sobremesa: string;
+  cafeDaTarde?: string;
+  jantar?: string;
 }
+
+export type ExtraMealKey = 'cafeDaTarde' | 'jantar';
+
+export const EXTRA_MEALS: ExtraMealKey[] = ['cafeDaTarde', 'jantar'];
 
 export interface DayInfo {
   key: DayKey;
@@ -37,6 +43,8 @@ export const CATEGORY_LABELS: Record<keyof DayMeal, { title: string; icon: strin
   guarnicao: { title: 'Guarnição', icon: '🍚' },
   salada: { title: 'Salada', icon: '🥗' },
   sobremesa: { title: 'Sobremesa', icon: '🍮' },
+  cafeDaTarde: { title: 'Café da tarde', icon: '☕' },
+  jantar: { title: 'Jantar', icon: '🍽️' },
 };
 
 export const EMPTY_DAY_MEAL: DayMeal = {
@@ -45,6 +53,10 @@ export const EMPTY_DAY_MEAL: DayMeal = {
   salada: '',
   sobremesa: '',
 };
+
+export function hasMealContent(day: DayMeal): boolean {
+  return Object.values(day).some((value) => value?.trim());
+}
 
 export function createEmptyWeekMenu(weekId: string, startDate = '', endDate = '', year = 2026, weekNumber = 1): WeekMenu {
   return {
